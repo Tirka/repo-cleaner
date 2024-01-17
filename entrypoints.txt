@@ -9,14 +9,21 @@ velas-relying-party-program
 solana-cli
 velas-validator
 solana-sys-tuner
-solana-genesis-utils
+solana-genesis
 velas-install
 solana-keygen
 solana-ledger-tool
 solana-sys-tuner
 solana-test-validator
+solana-replica-node
+proto
+solana-client-test
+solana-rpc-test
+solana-local-cluster
 
 # Solana BPF
+solana-cargo-build-bpf
+solana-cargo-test-bpf
 solana-bpf-programs
 solana-bpf-rust-128bit
 solana-bpf-rust-128bit-dep
