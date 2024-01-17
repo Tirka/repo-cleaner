@@ -1,0 +1,12 @@
+[package]
+name = "repo-cleaner"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.79"
+itertools = "0.12.0"
+fehler = "1.0.0"
+petgraph = "0.6.4"
+toml = "0.8.8"
+serde = { version = "1.0.195", features = ["derive"] }
