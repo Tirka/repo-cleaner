@@ -1,6 +1,7 @@
 use std::{collections::HashSet, path::PathBuf, str::FromStr};
 
 use fehler::throws;
+use itertools::Itertools;
 
 #[throws(anyhow::Error)]
 pub fn collect_compilation_units(repo_root: PathBuf) -> HashSet<CompilationUnit> {
@@ -38,6 +39,7 @@ pub struct CompilationUnit {
     pub name: String,
     pub description: String,
     pub dependencies: Vec<String>,
+    pub dev_dependencies: Vec<String>,
     pub manifest: PathBuf,
 }
 
@@ -59,13 +61,22 @@ impl CompilationUnit {
         let dependencies = manifest
             .get("dependencies")
             .and_then(|d| d.as_table())
-            .map(|deps| deps.keys().cloned().collect::<Vec<_>>())
+            .map(|deps| deps.keys().cloned().collect_vec())
             .unwrap_or_default();
+
+        let dev_dependencies = manifest
+            .get("dev-dependencies")
+            .and_then(|d| d.as_table())
+            .map(|deps| deps.keys().cloned().collect_vec())
+            .unwrap_or_default();
+
+        println!("{:?}", &dev_dependencies);
 
         Self {
             name: name.to_string(),
             description: description.to_string(),
             dependencies: dependencies,
+            dev_dependencies: dev_dependencies,
             manifest: manifest_path,
         }
     }

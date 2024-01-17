@@ -47,7 +47,11 @@ fn main() {
     // 2) connect nodes with edges
     for cu in compilation_units {
         let unit = node_indices.get(&cu.name).unwrap();
-        for dep in cu.dependencies {
+        for dep in cu
+            .dependencies
+            .into_iter()
+            .chain(cu.dev_dependencies.into_iter())
+        {
             if let Some(dep) = node_indices.get(&dep) {
                 dependency_graph.add_edge(*unit, *dep, 1);
             }
